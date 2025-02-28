@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function App() {
   const [task, setTask] = useState([]);
@@ -13,6 +13,9 @@ function App() {
     console.log("index : ", index);
     setTask(task.filter((_, i) => i !== index));
   }
+  function handleDeleteAllTask() {
+    setTask([]);
+  }
   return (
     <>
       <div>
@@ -23,6 +26,7 @@ function App() {
             type="string"
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleAddTask()}
           ></input>
           <button onClick={handleAddTask}>Submit</button>
         </label>
@@ -42,6 +46,9 @@ function App() {
           );
         })}
       </ol>
+      <button onClick={() => handleDeleteAllTask()} style={{ margin: "10px" }}>
+        Delete ALL TASKS
+      </button>
     </>
   );
 }
